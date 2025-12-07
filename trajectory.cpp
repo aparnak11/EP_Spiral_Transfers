@@ -33,7 +33,7 @@ Vec2 operator*(const Vec2& v, double k) {
     return {v[0] * k, v[1] * k};
 }
 
-double norm(std::array<double, 2>& r) {
+double norm(const std::array<double, 2>& r) {
     return sqrt(r[0] * r[0] + r[1] * r[1]);
 }
 
