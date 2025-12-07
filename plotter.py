@@ -18,7 +18,7 @@ r_mars = 1.52 * r_earth
 # ------------------------
 # 2. Set up the figure
 # ------------------------
-fig, ax = plt.subplots(figsize=(6, 6))
+fig, ax = plt.subplots(figsize=(8, 8))
 ax.set_aspect('equal', 'box')
 
 # Plot Sun
@@ -34,7 +34,7 @@ traj_line, = ax.plot([], [], '-', linewidth=2, label='Spacecraft')
 sc_point, = ax.plot([], [], 'ro', markersize=4)
 
 # Axis limits (pad a bit beyond Mars)
-pad = 0.1 * r_mars
+pad = 0.2 * r_mars
 ax.set_xlim(-r_mars - pad, r_mars + pad)
 ax.set_ylim(-r_mars - pad, r_mars + pad)
 ax.set_xlabel('x (km)')
@@ -44,9 +44,15 @@ ax.legend(loc='upper right')
 
 # Text box for mission info (in axes coordinates)
 info_text = ax.text(
-    0.02, 0.95, "", 
+    0.02, 0.98, "", 
     transform=ax.transAxes,
-    ha="left", va="top"
+    ha="left", va="top",
+    bbox=dict(
+        boxstyle="round,pad=0.4",   # rounded corners, padding
+        edgecolor="grey",          # border color
+        facecolor="white",          # background color
+        linewidth=1                 # border thickness
+    )
 )
 
 # ------------------------
@@ -66,11 +72,14 @@ def update(frame):
     # compute mission day and radius
     time_s = t[frame]                  # seconds
     day = time_s / 86400.0            # days
+    year = time_s / (86400.0 * 365.25)  # years
     r = np.sqrt(x[frame]**2 + y[frame]**2)  # km
+    r_AU = r / 1.496e8  # in AU
 
     info_text.set_text(
-        f"Day: {day:7.1f}\n"
-        f"Radius: {r: .3e} km"
+        f"Day: {day:7.0f}\n"
+        f"Year: {year: .1f}\n"
+        f"Radius: {r_AU:.2f} AU"
     )
 
     return traj_line, sc_point, info_text
