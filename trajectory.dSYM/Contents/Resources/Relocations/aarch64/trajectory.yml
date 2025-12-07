@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/aparnakrishnan/miniforge3/envs/aste404/miniproject/EP_Spiral_Transfers/trajectory'
+relocations:     []
+...
