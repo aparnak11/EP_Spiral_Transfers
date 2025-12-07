@@ -2,6 +2,7 @@
 #include <array>
 #include <vector>
 #include <cmath>
+#include <fstream>
 
 using Vec2 = std::array<double, 2>;
 
@@ -55,6 +56,7 @@ int main() {
 
     std::vector<double> x = { r[0] };
     std::vector<double> y = { r[1] };
+    std::vector<double> t_hist = { t }; // time history for output
 
     while (norm(r) < r_mars) {
         // acceleration due to gravity
@@ -74,9 +76,10 @@ int main() {
         m = m - mdot * dt;
         t = t + dt;
 
-        // update x and y
+        // update x, y, and time history
         x.push_back(r[0]);
         y.push_back(r[1]);
+        t_hist.push_back(t);
     }
 
     // results
@@ -84,6 +87,14 @@ int main() {
     std::cout << "Final radius: " << norm(r) << " km" << std::endl;
     std::cout << "Final mass: " << m << " kg" << std::endl;
     std::cout << "Travel time: " << t / 3.154e7 << " years" << std::endl;
+
+    // output vectors to csv file for plotting
+    std::ofstream out("trajectory.csv");
+    out << "t,x,y\n";  // header
+    for (size_t i = 0; i < x.size(); ++i) {
+        out << t_hist[i] << "," << x[i] << "," << y[i] << "\n";
+    }
+    out.close();
 
     return 0;
 }
