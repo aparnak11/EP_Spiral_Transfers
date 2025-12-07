@@ -5,7 +5,7 @@ from matplotlib.animation import FuncAnimation
 # ------------------------
 # 1. Load data from C++
 # ------------------------
-data = np.loadtxt("trajectory_LPH.csv", delimiter=",", skiprows=1)
+data = np.loadtxt("trajectory_HPH.csv", delimiter=",", skiprows=1)
 t = data[:, 0]   # time (s) – optional for labels if you want
 x = data[:, 1]   # km
 y = data[:, 2]   # km
@@ -86,7 +86,7 @@ def update(frame):
 
 
 # You can thin frames if there are too many
-frames = range(0, len(x), 50000)
+frames = range(0, len(x), 5000)
 #frames = len(x)
 
 anim = FuncAnimation(
@@ -94,7 +94,7 @@ anim = FuncAnimation(
     update,
     frames=frames,
     init_func=init,
-    interval=2,   # ms per frame
+    interval=20,   # ms per frame
     blit=True,
     repeat=False
 )
@@ -102,4 +102,4 @@ anim = FuncAnimation(
 plt.show()
 
 # To save as a video (optional, needs ffmpeg installed):
-anim.save("earth_to_mars_trajectory_LPH.mp4", fps=30, dpi=150)
+#anim.save("earth_to_mars_trajectory_HPH.mp4", fps=30, dpi=150)
