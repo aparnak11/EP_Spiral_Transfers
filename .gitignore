@@ -1,0 +1,5 @@
+# Ignore large trajectory files
+*.csv
+
+# Ignore video files
+*.mp4
