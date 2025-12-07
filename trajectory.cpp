@@ -89,7 +89,7 @@ int main() {
     std::cout << "Travel time: " << t / 3.154e7 << " years" << std::endl;
 
     // output vectors to csv file for plotting
-    std::ofstream out("trajectory.csv");
+    std::ofstream out("trajectory_HPI.csv");
     out << "t,x,y\n";  // header
     for (size_t i = 0; i < x.size(); ++i) {
         out << t_hist[i] << "," << x[i] << "," << y[i] << "\n";
