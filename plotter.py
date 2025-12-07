@@ -42,22 +42,38 @@ ax.set_ylabel('y (km)')
 ax.set_title('Low-Thrust Transfer from Earth to Mars')
 ax.legend(loc='upper right')
 
+# Text box for mission info (in axes coordinates)
+info_text = ax.text(
+    0.02, 0.95, "", 
+    transform=ax.transAxes,
+    ha="left", va="top"
+)
+
 # ------------------------
 # 3. Animation functions
 # ------------------------
 def init():
     traj_line.set_data([], [])
     sc_point.set_data([], [])
-    return traj_line, sc_point
+    info_text.set_text("")
+    return traj_line, sc_point, info_text
 
 def update(frame):
-    # Draw trajectory up to current frame
+    # trajectory up to current frame
     traj_line.set_data(x[:frame+1], y[:frame+1])
-
-    # Current spacecraft position: wrap in lists so they’re sequences
     sc_point.set_data([x[frame]], [y[frame]])
 
-    return traj_line, sc_point
+    # compute mission day and radius
+    time_s = t[frame]                  # seconds
+    day = time_s / 86400.0            # days
+    r = np.sqrt(x[frame]**2 + y[frame]**2)  # km
+
+    info_text.set_text(
+        f"Day: {day:7.1f}\n"
+        f"Radius: {r: .3e} km"
+    )
+
+    return traj_line, sc_point, info_text
 
 
 # You can thin frames if there are too many
