@@ -5,7 +5,7 @@ from matplotlib.animation import FuncAnimation
 # ------------------------
 # 1. Load data from C++
 # ------------------------
-data = np.loadtxt("trajectory_HPH.csv", delimiter=",", skiprows=1)
+data = np.loadtxt("trajectory_mass_test.csv", delimiter=",", skiprows=1)
 t = data[:, 0]   # time (s) – optional for labels if you want
 x = data[:, 1]   # km
 y = data[:, 2]   # km

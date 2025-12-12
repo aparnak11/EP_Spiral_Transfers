@@ -74,6 +74,11 @@ int main() {
 
         // update mass and time
         m = m - mdot * dt;
+        if (m <= 0) {
+            std::cout << "Ran out of mass!" << std::endl;
+            m = 0;
+            break;
+        }
         t = t + dt;
 
         // update x, y, and time history
@@ -82,14 +87,26 @@ int main() {
         t_hist.push_back(t);
     }
 
+    // helper variables for output
+    // get final position components
+    double xf = x.back();
+    double yf = y.back();
+    double r_final = sqrt(std::pow(xf, 2) + std::pow(yf, 2)); // final radius in km
+    double r_AU = r_final / (1.496 * std::pow(10, 8));  // in AU
+    bool reached_mars = (r_final >= r_mars);
+
     // results
-    std::cout << "Reached Mars: " << (norm(r) >= r_mars ? "Yes" : "No") << std::endl;
-    std::cout << "Final radius: " << norm(r) << " km" << std::endl;
+    if (reached_mars) {
+        std::cout << "Successfully reached Mars orbit!" << std::endl;
+    } else {
+        std::cout << "Did not reach Mars orbit." << std::endl;
+    }
+    std::cout << "Final radius: " << r_final << " km, " << r_AU << " AU" << std::endl;
     std::cout << "Final mass: " << m << " kg" << std::endl;
     std::cout << "Travel time: " << t / 3.154e7 << " years" << std::endl;
 
     // output vectors to csv file for plotting
-    std::ofstream out("trajectory_HPI.csv");
+    std::ofstream out("trajectory_mass_test.csv");
     out << "t,x,y\n";  // header
     for (size_t i = 0; i < x.size(); ++i) {
         out << t_hist[i] << "," << x[i] << "," << y[i] << "\n";
