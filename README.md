@@ -4,6 +4,8 @@ This project models the spiral transfer trajectories of different electric propu
 ## Implementation Instructions
 *The implementation example shown below is for a high power ion thruster.*
 ### 1. Building the simulation
+Make a directory for the project containing the trajectory.cpp and plotter.py files.
+
 To build the simulation, first pick a thruster to simulate from the options below, and replace lines 45 and 46 in trajectory.cpp with the values for thrust and Isp desired.
 
 ![EP thruster options and properties table.](thruster_options.png)
