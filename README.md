@@ -10,7 +10,7 @@ To build the simulation, first pick a thruster to simulate from the options belo
 
 ![EP thruster options and properties table.](thruster_options.png)
 
-Make sure to also give the .csv file a name specfic to the thruster chosen. (Eg. thruster_HPI.csv).
+Make sure to also give the .csv file a name specfic to the thruster chosen. (Eg. trajectory_HPI.csv).
 
 The updated lines in the simulation code should look like this:
 ```cpp
